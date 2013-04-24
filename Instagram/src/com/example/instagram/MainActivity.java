@@ -1,17 +1,12 @@
 package com.example.instagram;
 
-import org.jinstagram.auth.InstagramAuthService;
 import org.jinstagram.auth.model.Token;
-import org.jinstagram.auth.model.Verifier;
-import org.jinstagram.auth.oauth.InstagramService;
 
 import tools.instagram.InstagramController;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.Menu;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;

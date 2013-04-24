@@ -4,23 +4,18 @@ import java.util.List;
 
 import org.jinstagram.Instagram;
 import org.jinstagram.entity.comments.CommentData;
-import org.jinstagram.entity.common.Caption;
 import org.jinstagram.entity.common.Comments;
 import org.jinstagram.entity.common.ImageData;
 import org.jinstagram.entity.common.Images;
 import org.jinstagram.entity.common.Likes;
 import org.jinstagram.entity.common.Location;
 import org.jinstagram.entity.users.basicinfo.UserInfo;
-import org.jinstagram.entity.users.basicinfo.UserInfoData;
 import org.jinstagram.entity.users.feed.MediaFeed;
 import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.jinstagram.exceptions.InstagramException;
 
-import com.example.instagram.MainActivity.getTokenAsyncTask;
-
 import tools.instagram.InstagramController;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
