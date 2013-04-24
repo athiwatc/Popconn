@@ -7,5 +7,8 @@
     
     <!-- activity_welcome.xml -->
     <string name="str_activity_welcome_instagram_login">Login to Instagram</string>
+    <string name="str_activity_welcome_feed">Go to feed</string>
+    
+    <!-- activity_feed.xml -->
 
 </resources>
