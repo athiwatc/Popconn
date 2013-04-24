@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PopConn</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">We love PopConn!</string>
+    
+    <!-- activity_welcome.xml -->
+    <string name="str_activity_welcome_instagram_login">Login to Instagram</string>
+
+</resources>
