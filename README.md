@@ -1,4 +1,4 @@
 Popconn
 =======
 
-A social combination platform...
+A social combination platform...?
