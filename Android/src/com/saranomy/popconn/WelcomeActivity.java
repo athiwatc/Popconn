@@ -13,29 +13,29 @@ import com.saranomy.popconn.start.LoginInstagramActivity;
 public class WelcomeActivity extends Activity {
 	private Button button_instagram_login;
 	private Button button_feed;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
 		syncViewById();
 	}
-	
+
 	private void syncViewById() {
 		button_instagram_login = (Button) findViewById(R.id.activity_welcome_instagram_login);
 		button_instagram_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// open instagram loggin in
-				Intent intent = new Intent(getApplicationContext(),LoginInstagramActivity.class);
+				Intent intent = new Intent(getApplicationContext(), LoginInstagramActivity.class);
 				startActivity(intent);
 			}
 		});
-		button_feed = (Button) findViewById(R.id.activity_welcome_instagram_feed);
+		button_feed = (Button) findViewById(R.id.activity_welcome_feed);
 		button_feed.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// open instagram loggin in
-				Intent intent = new Intent(getApplicationContext(),FeedActivity.class);
+				Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
 				startActivity(intent);
 			}
 		});

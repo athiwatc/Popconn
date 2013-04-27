@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,10 +24,10 @@ import com.saranomy.popconn.socialnetwork.InstagramCore;
 import com.saranomy.popconn.socialnetwork.InstagramItemAdapter;
 
 public class FeedActivity extends Activity {
-	private static int maxItems = 5;
+	private static int maxItems = 10;
 	private ImageView activity_feed_thumbnail;
-	private TextView textview_name;
-	private TextView textview_picture;
+	private TextView activity_feed_name;
+	private TextView activity_feed_description;
 	private ListView activity_feed_list;
 	private Instagram instagram;
 
@@ -35,18 +36,14 @@ public class FeedActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feed);
 		
-		// debug, clear image cache
-		ImageLoader imageLoader = new ImageLoader(getApplicationContext());
-		imageLoader.clearCache();
-		
 		syncViewById();
 		testLoadSocialNetwork();
 	}
 
 	private void syncViewById() {
-		activity_feed_thumbnail = (ImageView) findViewById(R.id.activity_feed_thumbnail);
-		textview_name = (TextView) findViewById(R.id.activity_feed_name);
-		textview_picture = (TextView) findViewById(R.id.activity_feed_picture);
+		activity_feed_thumbnail = (ImageView) findViewById(R.id.activity_feed_thumbnaill);
+		activity_feed_name = (TextView) findViewById(R.id.activity_feed_name);
+		activity_feed_description = (TextView) findViewById(R.id.activity_feed_description);
 		activity_feed_list = (ListView) findViewById(R.id.activity_feed_list);
 	}
 
@@ -76,12 +73,12 @@ public class FeedActivity extends Activity {
 		protected void onPostExecute(UserInfoData userInfoData) {
 			String temp = userInfoData.getUsername();
 			if (temp != null)
-				textview_name.setText(temp);
-			temp = userInfoData.getProfile_picture();
-			textview_picture.setText("imageurl: " + temp);
+				activity_feed_name.setText(temp);
+			temp = userInfoData.getWebsite();
+			activity_feed_description.setText(temp);
 			
 			ImageLoader imageLoader = new ImageLoader(getApplicationContext());
-			imageLoader.DisplayImage(temp, activity_feed_thumbnail);
+			imageLoader.DisplayImage(userInfoData.getProfile_picture(), activity_feed_thumbnail);
 		}
 	}
 
@@ -95,7 +92,7 @@ public class FeedActivity extends Activity {
 				List<MediaFeedData> mediaFeeds = mediaFeed.getData();
 
 				List<MediaFeedData> mediaDataList = new ArrayList<MediaFeedData>();
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < maxItems; i++) {
 					MediaFeedData mediaData = mediaFeeds.get(i);
 					mediaDataList.add(mediaData);
 				}
@@ -112,8 +109,6 @@ public class FeedActivity extends Activity {
 			InstagramItemAdapter adapter = new InstagramItemAdapter(mInflater, mediaDataList.size()	, mediaDataList);
 			activity_feed_list.setAdapter(adapter);
 			activity_feed_list.setItemsCanFocus(true);
-			
-			
 			super.onPostExecute(mediaDataList);
 		}
 	}

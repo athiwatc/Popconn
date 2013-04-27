@@ -6,6 +6,8 @@ import org.jinstagram.auth.model.Token;
 import org.jinstagram.auth.model.Verifier;
 import org.jinstagram.auth.oauth.InstagramService;
 
+import android.util.Log;
+
 public class InstagramCore {
 	private static InstagramCore instagramCore = null;
 	private static Instagram instagram = null;
@@ -41,6 +43,7 @@ public class InstagramCore {
 	}
 
 	public void setAccessToken(String tokenString) {
+		Log.e("InstagramCore set token", tokenString);
 		token = service.getAccessToken(token, new Verifier(tokenString));
 	}
 
@@ -54,5 +57,14 @@ public class InstagramCore {
 		if (instagram == null)
 			instagram = new Instagram(token);
 		return instagram;
+	}
+
+	public static String convertSecondToInstagramTime(long time) {
+		if (time < 60)
+			return time + "m";
+		else if (time < 1440)
+			return Math.round(time / 60) + "h";
+		else
+			return Math.round(time / 1440) + "d";
 	}
 }
