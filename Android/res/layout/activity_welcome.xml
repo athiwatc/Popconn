@@ -14,19 +14,42 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/activity_welcome_instagram_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/str_activity_welcome_instagram_login" />
-
-    <Button
-        android:id="@+id/activity_welcome_instagram_feed"
+        android:id="@+id/activity_welcome_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/str_activity_welcome_feed" />
+
+    <TextView
+        android:id="@+id/activity_welcome_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="@string/str_activity_welcome_description" />
+
+    <LinearLayout
+        android:id="@+id/activity_welcome_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/str_activity_welcome_facebook_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_activity_welcome_facebook_login" />
+
+        <Button
+            android:id="@+id/activity_welcome_instagram_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_activity_welcome_instagram_login" />
+    </LinearLayout>
 
 </RelativeLayout>
