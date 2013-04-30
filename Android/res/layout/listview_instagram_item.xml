@@ -74,7 +74,9 @@
                 android:layout_height="512px"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible" />
+
         </RelativeLayout>
 
         <LinearLayout

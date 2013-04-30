@@ -20,6 +20,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 
 import com.saranomy.popconn.R;
@@ -28,8 +32,7 @@ public class ImageLoader {
 
 	MemoryCache memoryCache = new MemoryCache();
 	FileCache fileCache;
-	private Map<ImageView, String> imageViews = Collections
-			.synchronizedMap(new WeakHashMap<ImageView, String>());
+	private Map<ImageView, String> imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 	ExecutorService executorService;
 	Handler handler = new Handler();
 
@@ -43,12 +46,15 @@ public class ImageLoader {
 	public void DisplayImage(String url, ImageView imageView) {
 		imageViews.put(imageView, url);
 		Bitmap bitmap = memoryCache.get(url);
-		if (bitmap != null)
+		if (bitmap != null) {
 			imageView.setImageBitmap(bitmap);
-		else {
+			imageView.setVisibility(ImageView.VISIBLE);
+		} else {
 			queuePhoto(url, imageView);
 			imageView.setImageResource(stub_id);
+			imageView.setVisibility(ImageView.INVISIBLE);
 		}
+
 	}
 
 	private void queuePhoto(String url, ImageView imageView) {
@@ -68,8 +74,7 @@ public class ImageLoader {
 		try {
 			Bitmap bitmap = null;
 			URL imageUrl = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection) imageUrl
-					.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
 			conn.setConnectTimeout(30000);
 			conn.setReadTimeout(30000);
 			conn.setInstanceFollowRedirects(true);
@@ -103,8 +108,7 @@ public class ImageLoader {
 			int width_tmp = o.outWidth, height_tmp = o.outHeight;
 			int scale = 1;
 			while (true) {
-				if (width_tmp / 2 < REQUIRED_SIZE
-						|| height_tmp / 2 < REQUIRED_SIZE)
+				if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE)
 					break;
 				width_tmp /= 2;
 				height_tmp /= 2;
@@ -180,10 +184,28 @@ public class ImageLoader {
 		public void run() {
 			if (imageViewReused(photoToLoad))
 				return;
-			if (bitmap != null)
+			if (bitmap != null) {
 				photoToLoad.imageView.setImageBitmap(bitmap);
-			else
+				Animation a = new AlphaAnimation(0.00f, 1.00f);
+
+				a.setDuration(1000);
+				a.setAnimationListener(new AnimationListener() {
+
+					public void onAnimationStart(Animation animation) {
+						photoToLoad.imageView.setVisibility(ImageView.VISIBLE);
+
+					}
+
+					public void onAnimationRepeat(Animation animation) {}
+
+					public void onAnimationEnd(Animation animation) {}
+				});
+
+				photoToLoad.imageView.startAnimation(a);
+			} else {
 				photoToLoad.imageView.setImageResource(stub_id);
+				photoToLoad.imageView.setVisibility(ImageView.INVISIBLE);
+			}
 		}
 	}
 

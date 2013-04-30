@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.saranomy.popconn.imagecache.ImageLoader;
 import com.saranomy.popconn.start.LoginInstagramActivity;
 
 public class WelcomeActivity extends Activity {
@@ -17,6 +18,8 @@ public class WelcomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		new ImageLoader(getApplicationContext()).clearCache();
 		setContentView(R.layout.activity_welcome);
 		syncViewById();
 	}
