@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD060"
+    android:background="#e5e5e5"
     tools:context=".WelcomeActivity" >
 
     <LinearLayout
         android:id="@+id/activity_feed_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:background="@drawable/action_bar_shape"
         android:orientation="horizontal" >
 
         <ImageView
@@ -46,7 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/activity_feed_bar"
-        android:background="#FFFFFF" >
+        android:background="#e5e5e5"
+        android:divider="#e5e5e5" >
     </ListView>
 
 </RelativeLayout>

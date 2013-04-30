@@ -11,7 +11,14 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int action_bar_shape=0x7f020000;
+        public static final int chat=0x7f020001;
+        public static final int favourite=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int instagram72x72=0x7f020004;
+        public static final int round_button_shape=0x7f020005;
+        public static final int round_rect_shape=0x7f020006;
+        public static final int share=0x7f020007;
     }
     public static final class id {
         public static final int activity_feed_bar=0x7f070000;
@@ -23,15 +30,20 @@ public final class R {
         public static final int activity_welcome_feed=0x7f070006;
         public static final int activity_welcome_instagram_login=0x7f07000a;
         public static final int activity_welcome_login=0x7f070008;
-        public static final int listview_instagram_item_comment=0x7f070012;
-        public static final int listview_instagram_item_description=0x7f070010;
-        public static final int listview_instagram_item_header=0x7f07000b;
-        public static final int listview_instagram_item_image=0x7f07000f;
-        public static final int listview_instagram_item_like=0x7f070011;
-        public static final int listview_instagram_item_owner=0x7f07000d;
-        public static final int listview_instagram_item_thumbnail=0x7f07000c;
-        public static final int listview_instagram_item_time=0x7f07000e;
-        public static final int menu_settings=0x7f070013;
+        public static final int imageView1=0x7f070010;
+        public static final int listview_instagram_item_button_comment=0x7f070013;
+        public static final int listview_instagram_item_button_favourite=0x7f070012;
+        public static final int listview_instagram_item_button_share=0x7f070014;
+        public static final int listview_instagram_item_comment=0x7f070017;
+        public static final int listview_instagram_item_description=0x7f070015;
+        public static final int listview_instagram_item_header=0x7f07000c;
+        public static final int listview_instagram_item_image=0x7f070011;
+        public static final int listview_instagram_item_item=0x7f07000b;
+        public static final int listview_instagram_item_like=0x7f070016;
+        public static final int listview_instagram_item_owner=0x7f07000e;
+        public static final int listview_instagram_item_thumbnail=0x7f07000d;
+        public static final int listview_instagram_item_time=0x7f07000f;
+        public static final int menu_settings=0x7f070018;
         public static final int str_activity_welcome_facebook_login=0x7f070009;
         public static final int textView1=0x7f070005;
     }

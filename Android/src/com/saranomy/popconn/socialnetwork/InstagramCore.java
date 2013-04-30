@@ -61,10 +61,10 @@ public class InstagramCore {
 
 	public static String convertSecondToInstagramTime(long time) {
 		if (time < 60)
-			return time + "m";
+			return time + " minutes ago";
 		else if (time < 1440)
-			return Math.round(time / 60) + "h";
+			return Math.round(time / 60) + " hours ago";
 		else
-			return Math.round(time / 1440) + "d";
+			return Math.round(time / 1440) + " days ago";
 	}
 }
