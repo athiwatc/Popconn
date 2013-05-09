@@ -12,9 +12,13 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Menu;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,14 +40,26 @@ public class MainActivity extends Activity {
     private Twitter twitter;
     private static RequestToken requestToken;
     private AccessToken accessToken;
+
+    private String accessTokenS;
+    private String accessTokenSecretS;
     
     private TwitterWebView webview;
+    
+    SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		sp = this.getSharedPreferences("com.example.twitter", Context.MODE_PRIVATE);
+
+		accessTokenS = sp.getString("twitter_access_token", null);
+		accessTokenSecretS = sp.getString("twitter_access_token_secret", null);
+		
+		
 		webview = new TwitterWebView(this);
 		webview.getSettings().setJavaScriptEnabled(true);
 	
@@ -58,7 +74,7 @@ public class MainActivity extends Activity {
                 	//System.out.println("URL = " + url);
                 	new getAccessTokenTask().execute(oauth_verifier);
                 	//String oauth_verifier = twitterController.generateTokenVerifier(url);
-                	new getAccessTokenTask().execute(oauth_verifier);
+                	//new getAccessTokenTask().execute(oauth_verifier);
                 }
                 else
                    view.loadUrl(url);        
@@ -74,12 +90,23 @@ public class MainActivity extends Activity {
 		ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.setOAuthConsumerKey(TWITTER_CONSUMER_KEY);
         builder.setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET);
+        builder.setOAuthAccessToken(accessTokenS);
+        builder.setOAuthAccessTokenSecret(accessTokenSecretS);
         Configuration configuration = builder.build();
 
         TwitterFactory factory = new TwitterFactory(configuration);
         twitter = factory.getInstance();
         
-        new getRequestTokenTask().execute(TWITTER_CALLBACK_URL);
+        if (accessTokenS != null) {
+            Log.e("is it null?", "no");
+        	Intent intent = new Intent(getApplicationContext(),TimelineActivity.class);
+            intent.putExtra("AccessToken", accessTokenS);
+            intent.putExtra("TokenSecret", accessTokenSecretS);
+			startActivity(intent);
+        } else {
+            Log.e("is it null?", "yes");
+        	new getRequestTokenTask().execute(TWITTER_CALLBACK_URL);
+        }
         
 	}
 	
@@ -90,7 +117,7 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			try {
                 requestToken = twitter.getOAuthRequestToken(callback[0]);
-                //System.out.println("AuthorizationURL = " + requestToken.getAuthorizationURL());
+                //Log.e("requestToken", requestToken.toString());
             } catch (TwitterException e) {
                 e.printStackTrace();
             }
@@ -111,6 +138,16 @@ public class MainActivity extends Activity {
 		protected Void doInBackground(String... params) {
 			try {
 				accessToken = twitter.getOAuthAccessToken(requestToken, params[0]);
+				SharedPreferences.Editor spe = sp.edit();
+				spe.putString("twitter_access_token", accessToken.getToken());
+				spe.putString("twitter_access_token_secret", accessToken.getTokenSecret());
+				
+				spe.commit();
+				
+				
+				
+				Log.e("put access token?", "yes");
+				
 			} catch (TwitterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
