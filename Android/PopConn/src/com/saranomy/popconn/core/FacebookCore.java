@@ -1,6 +1,10 @@
 package com.saranomy.popconn.core;
 
+import java.io.IOException;
+
 import android.app.Activity;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.Request;
@@ -11,8 +15,10 @@ import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
 
 public class FacebookCore {
+	private static String appId = "105708102927645";
 	private static FacebookCore facebookCore = null;
 	private GraphUser graphUser;
+	private Facebook facebook;
 
 	private Activity currentActivity;
 	public boolean active = false;
@@ -24,7 +30,7 @@ public class FacebookCore {
 	}
 
 	public void callLogin(final Activity activity) {
-
+		new CreateFacebookTask().execute();
 		currentActivity = activity;
 		Session.openActiveSession(activity, true, new Session.StatusCallback() {
 			@Override
@@ -35,6 +41,7 @@ public class FacebookCore {
 						@Override
 						public void onCompleted(GraphUser user, Response response) {
 							if (user != null) {
+
 								graphUser = user;
 								active = true;
 								activity.finish();
@@ -48,5 +55,24 @@ public class FacebookCore {
 				}
 			}
 		});
+	}
+
+	public class CreateFacebookTask extends AsyncTask<Void, Void, Void> {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			Log.e("CreateFacebookTask", "begin");
+			facebook = new Facebook(appId);
+			String newsfeed;
+			try {
+				newsfeed = facebook.request("me/home");
+				Log.e("CreateFacebookTask", "newsfeed: "+newsfeed);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
 	}
 }
