@@ -9,7 +9,16 @@
         android:id="@+id/activity_feed_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/activity_feed_background" >
+        android:divider="@color/activity_feed_background"
+        android:visibility="invisible" >
     </eu.erikw.PullToRefreshListView>
+
+    <ProgressBar
+        android:id="@+id/activity_feed_refresh"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

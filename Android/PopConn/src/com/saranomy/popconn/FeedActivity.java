@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.saranomy.popconn.core.InstagramCore;
 import com.saranomy.popconn.core.TwitterCore;
@@ -29,6 +31,7 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class FeedActivity extends Activity {
 	private PullToRefreshListView activity_feed_listview;
+	private ProgressBar activity_feed_refresh;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
 
@@ -48,10 +51,9 @@ public class FeedActivity extends Activity {
 			@Override
 			public void onRefresh() {
 				init();
-				activity_feed_listview.onRefreshComplete();
 			}
 		});
-
+		activity_feed_refresh = (ProgressBar) findViewById(R.id.activity_feed_refresh);
 	}
 
 	private void init() {
@@ -148,6 +150,10 @@ public class FeedActivity extends Activity {
 			ItemAdapter adapter = new ItemAdapter(inflater, items);
 			Collections.sort(items, Item.comparator);
 			activity_feed_listview.setAdapter(adapter);
+
+			activity_feed_refresh.setVisibility(View.GONE);
+			activity_feed_listview.setVisibility(View.VISIBLE);
+			activity_feed_listview.onRefreshComplete();
 			super.onPostExecute(result);
 		}
 	}
