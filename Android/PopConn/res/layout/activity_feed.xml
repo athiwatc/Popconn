@@ -5,20 +5,11 @@
     android:background="@color/activity_feed_background"
     android:orientation="vertical" >
 
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
-    <ListView
+    <eu.erikw.PullToRefreshListView
         android:id="@+id/activity_feed_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/activity_feed_background"
-        android:visibility="invisible" >
-    </ListView>
+        android:divider="@color/activity_feed_background" >
+    </eu.erikw.PullToRefreshListView>
 
 </RelativeLayout>

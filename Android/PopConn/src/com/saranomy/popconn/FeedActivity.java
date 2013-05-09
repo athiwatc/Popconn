@@ -16,16 +16,19 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ListView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.saranomy.popconn.core.InstagramCore;
 import com.saranomy.popconn.core.TwitterCore;
 import com.saranomy.popconn.item.Item;
 import com.saranomy.popconn.item.ItemAdapter;
 
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
+
 public class FeedActivity extends Activity {
-	private ListView activity_feed_listview;
+	private PullToRefreshListView activity_feed_listview;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
 
@@ -40,7 +43,15 @@ public class FeedActivity extends Activity {
 	}
 
 	private void syncViewById() {
-		activity_feed_listview = (ListView) findViewById(R.id.activity_feed_listview);
+		activity_feed_listview = (PullToRefreshListView) findViewById(R.id.activity_feed_listview);
+		activity_feed_listview.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				init();
+				activity_feed_listview.onRefreshComplete();
+			}
+		});
+
 	}
 
 	private void init() {
@@ -137,7 +148,6 @@ public class FeedActivity extends Activity {
 			ItemAdapter adapter = new ItemAdapter(inflater, items);
 			Collections.sort(items, Item.comparator);
 			activity_feed_listview.setAdapter(adapter);
-			activity_feed_listview.setVisibility(View.VISIBLE);
 			super.onPostExecute(result);
 		}
 	}
@@ -150,5 +160,17 @@ public class FeedActivity extends Activity {
 			return Math.round(delta / 60) + "h";
 		else
 			return Math.round(delta / 1440) + "d";
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_feed, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onMenuItemSelected(featureId, item);
 	}
 }
