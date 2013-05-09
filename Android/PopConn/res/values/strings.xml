@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_id">105708102927645</string>
+    <string name="app_name">PopConn</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- activity_main.xml -->
+    <string name="activity_main_facebook">Facebook</string>
+    <string name="activity_main_twitter">Twitter</string>
+    <string name="activity_main_instagram">Instagram</string>
+    <string name="activity_main_start">Start</string>
+    
+    <!-- activity_feed.xml -->
+    <string name="activity_feed_refresh">Refresh</string>
+
+</resources>
