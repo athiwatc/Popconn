@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.saranomy.popconn.core.InstagramCore;
@@ -26,11 +27,8 @@ import com.saranomy.popconn.core.TwitterCore;
 import com.saranomy.popconn.item.Item;
 import com.saranomy.popconn.item.ItemAdapter;
 
-import eu.erikw.PullToRefreshListView;
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
-
 public class FeedActivity extends Activity {
-	private PullToRefreshListView activity_feed_listview;
+	private ListView activity_feed_listview;
 	private ProgressBar activity_feed_refresh;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
@@ -46,13 +44,13 @@ public class FeedActivity extends Activity {
 	}
 
 	private void syncViewById() {
-		activity_feed_listview = (PullToRefreshListView) findViewById(R.id.activity_feed_listview);
-		activity_feed_listview.setOnRefreshListener(new OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				init();
-			}
-		});
+		activity_feed_listview = (ListView) findViewById(R.id.activity_feed_listview);
+		// activity_feed_listview.setOnRefreshListener(new OnRefreshListener() {
+		// @Override
+		// public void onRefresh() {
+		// init();
+		// }
+		// });
 		activity_feed_refresh = (ProgressBar) findViewById(R.id.activity_feed_refresh);
 	}
 
@@ -81,7 +79,8 @@ public class FeedActivity extends Activity {
 		}
 
 		private void getHomeTimeline(Paging paging) throws TwitterException {
-			List<twitter4j.Status> statuses = twitterCore.twitter.getHomeTimeline(paging);
+			List<twitter4j.Status> statuses = twitterCore.twitter
+					.getHomeTimeline(paging);
 			for (twitter4j.Status status : statuses) {
 				Item item = new Item();
 				item.socialId = 1;
@@ -114,7 +113,8 @@ public class FeedActivity extends Activity {
 		protected Void doInBackground(Void... arg0) {
 			if (instagramCore.active) {
 				try {
-					MediaFeed mediaFeed = instagramCore.instagram.getUserFeeds();
+					MediaFeed mediaFeed = instagramCore.instagram
+							.getUserFeeds();
 					List<MediaFeedData> mediaFeedData = mediaFeed.getData();
 					for (int i = 0; i < 20; i++) {
 						MediaFeedData media = mediaFeedData.get(i);
@@ -124,15 +124,20 @@ public class FeedActivity extends Activity {
 						item.action = "";
 						if (media.getLocation() != null)
 							item.action = media.getLocation().getName();
-						item.thumbnail_url = media.getUser().getProfilePictureUrl();
+						item.thumbnail_url = media.getUser()
+								.getProfilePictureUrl();
 						item.date = Long.parseLong(media.getCreatedTime());
 						item.time = countDown(item.date);
-						item.image_url = media.getImages().getStandardResolution().getImageUrl();
+						item.image_url = media.getImages()
+								.getStandardResolution().getImageUrl();
 
-						List<CommentData> comments = media.getComments().getComments();
+						List<CommentData> comments = media.getComments()
+								.getComments();
 						StringBuffer sb = new StringBuffer();
 						for (CommentData comment : comments) {
-							sb.append(comment.getCommentFrom().getUsername()).append(": ").append(comment.getText()).append("\n");
+							sb.append(comment.getCommentFrom().getUsername())
+									.append(": ").append(comment.getText())
+									.append("\n");
 						}
 						item.comment = sb.toString();
 						items.add(item);
@@ -153,7 +158,7 @@ public class FeedActivity extends Activity {
 
 			activity_feed_refresh.setVisibility(View.GONE);
 			activity_feed_listview.setVisibility(View.VISIBLE);
-			activity_feed_listview.onRefreshComplete();
+			// activity_feed_listview.onRefreshComplete();
 			super.onPostExecute(result);
 		}
 	}
