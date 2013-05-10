@@ -120,8 +120,8 @@ public class FeedActivity extends Activity {
 					MediaFeed mediaFeed = instagramCore.instagram
 							.getUserFeeds();
 					List<MediaFeedData> mediaFeedData = mediaFeed.getData();
-					int maxSize = Math.max(mediaFeedData.size(), 20);
-					for (int i = 0; i < maxSize; i++) {
+					int minSize = Math.min(mediaFeedData.size(), 20);
+					for (int i = 0; i < minSize; i++) {
 						MediaFeedData media = mediaFeedData.get(i);
 						Item item = new Item();
 						item.socialId = 2;
