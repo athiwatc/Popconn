@@ -2,10 +2,8 @@ package org.jinstagram.http;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.HttpURLConnection;
 import java.net.UnknownHostException;
-
 import java.util.HashMap;
 import java.util.Map;
 

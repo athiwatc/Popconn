@@ -1,5 +1,7 @@
 package org.jinstagram.realtime;
 
+import java.io.IOException;
+
 import org.jinstagram.auth.model.OAuthConstants;
 import org.jinstagram.auth.model.OAuthRequest;
 import org.jinstagram.exceptions.InstagramException;
@@ -8,8 +10,6 @@ import org.jinstagram.http.Verbs;
 import org.jinstagram.utils.Preconditions;
 
 import com.google.gson.Gson;
-
-import java.io.IOException;
 
 public class InstagramSubscription {
 	private String aspect;

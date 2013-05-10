@@ -1,5 +1,10 @@
 package org.jinstagram.auth;
 
+import static org.jinstagram.http.URLUtils.formURLEncode;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jinstagram.auth.exceptions.OAuthException;
 import org.jinstagram.auth.model.Constants;
 import org.jinstagram.auth.model.OAuthConfig;
@@ -7,11 +12,6 @@ import org.jinstagram.auth.model.Token;
 import org.jinstagram.auth.oauth.InstagramService;
 import org.jinstagram.http.Verbs;
 import org.jinstagram.utils.Preconditions;
-
-import static org.jinstagram.http.URLUtils.formURLEncode;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InstagramApi {
 	public String getAccessTokenEndpoint() {

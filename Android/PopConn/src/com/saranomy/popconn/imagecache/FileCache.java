@@ -1,6 +1,7 @@
 package com.saranomy.popconn.imagecache;
 
 import java.io.File;
+
 import android.content.Context;
 
 public class FileCache {

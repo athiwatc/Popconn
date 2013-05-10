@@ -1,8 +1,8 @@
 package org.jinstagram.realtime;
 
-import com.google.gson.Gson;
-
 import org.jinstagram.exceptions.InstagramException;
+
+import com.google.gson.Gson;
 
 public class SubscriptionUtil {
   

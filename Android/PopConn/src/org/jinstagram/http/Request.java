@@ -1,19 +1,16 @@
 package org.jinstagram.http;
 
-import org.jinstagram.auth.exceptions.OAuthException;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.nio.charset.Charset;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.jinstagram.auth.exceptions.OAuthException;
 
 /**
  * Represents an HTTP Request object

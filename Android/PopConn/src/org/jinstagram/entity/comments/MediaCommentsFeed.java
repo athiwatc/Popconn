@@ -1,10 +1,10 @@
 package org.jinstagram.entity.comments;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 import org.jinstagram.entity.common.Meta;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class MediaCommentsFeed {
 	@SerializedName("data")

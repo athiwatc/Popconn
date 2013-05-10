@@ -1,11 +1,11 @@
 package org.jinstagram.entity.users.feed;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 import org.jinstagram.entity.common.Meta;
 import org.jinstagram.entity.common.Pagination;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class MediaFeed {
 	@SerializedName("data")

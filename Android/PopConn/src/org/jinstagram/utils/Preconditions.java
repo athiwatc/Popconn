@@ -1,8 +1,8 @@
 package org.jinstagram.utils;
 
-import org.jinstagram.auth.model.OAuthConstants;
-
 import java.util.regex.Pattern;
+
+import org.jinstagram.auth.model.OAuthConstants;
 
 /**
  * Utils for checking preconditions and invariants

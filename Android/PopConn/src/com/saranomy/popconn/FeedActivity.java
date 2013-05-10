@@ -2,6 +2,7 @@ package com.saranomy.popconn;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.jinstagram.entity.comments.CommentData;
@@ -19,19 +20,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.github.jeremiemartinez.refreshlistview.RefreshListView;
+import com.github.jeremiemartinez.refreshlistview.RefreshListView.OnRefreshListener;
 import com.saranomy.popconn.core.InstagramCore;
 import com.saranomy.popconn.core.TwitterCore;
 import com.saranomy.popconn.item.Item;
 import com.saranomy.popconn.item.ItemAdapter;
 
 public class FeedActivity extends Activity {
-	private PullToRefreshListView activity_feed_listview;
+	private RefreshListView activity_feed_listview;
 	private ProgressBar activity_feed_refresh;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
@@ -47,14 +46,22 @@ public class FeedActivity extends Activity {
 	}
 
 	private void syncViewById() {
-		activity_feed_listview = (PullToRefreshListView) findViewById(R.id.activity_feed_listview);
-		activity_feed_listview.setOnRefreshListener(new OnRefreshListener<ListView>() {
-		    @Override
-		    public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		        // Do work to refresh the list here.
-		        init();
-		    }
+		activity_feed_listview = (RefreshListView) findViewById(R.id.activity_feed_listview);
+		activity_feed_listview.setEnabledDate(true, new Date());
+		activity_feed_listview.setRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh(RefreshListView listView) {
+				init();
+			}
 		});
+		// activity_feed_listview.setOnRefreshListener(new
+		// OnRefreshListener<ListView>() {
+		// @Override
+		// public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+		// // Do work to refresh the list here.
+		// init();
+		// }
+		// });
 		activity_feed_refresh = (ProgressBar) findViewById(R.id.activity_feed_refresh);
 	}
 
@@ -137,10 +144,11 @@ public class FeedActivity extends Activity {
 								.getStandardResolution().getImageUrl();
 
 						StringBuffer sb = new StringBuffer();
-						sb.append(media.getLikes().getCount()).append(" likes\n");
+						sb.append(media.getLikes().getCount()).append(
+								" likes\n");
 						List<CommentData> comments = media.getComments()
 								.getComments();
-						
+
 						for (CommentData comment : comments) {
 							sb.append(comment.getCommentFrom().getUsername())
 									.append(": ").append(comment.getText())
@@ -165,7 +173,7 @@ public class FeedActivity extends Activity {
 
 			activity_feed_refresh.setVisibility(View.GONE);
 			activity_feed_listview.setVisibility(View.VISIBLE);
-			activity_feed_listview.onRefreshComplete();
+			activity_feed_listview.finishRefreshing();
 			super.onPostExecute(result);
 		}
 	}

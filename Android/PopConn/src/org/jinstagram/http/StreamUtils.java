@@ -1,11 +1,11 @@
 package org.jinstagram.http;
 
-import org.jinstagram.utils.Preconditions;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import org.jinstagram.utils.Preconditions;
 
 /**
  * Utils to deal with Streams.

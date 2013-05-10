@@ -1,10 +1,10 @@
 package org.jinstagram.auth.model;
 
-import org.jinstagram.http.Request;
-import org.jinstagram.http.Verbs;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jinstagram.http.Request;
+import org.jinstagram.http.Verbs;
 
 /**
  * The representation of an OAuth HttpRequest.

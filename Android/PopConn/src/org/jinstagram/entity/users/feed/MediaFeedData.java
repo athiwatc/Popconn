@@ -1,6 +1,6 @@
 package org.jinstagram.entity.users.feed;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 import org.jinstagram.entity.common.Caption;
 import org.jinstagram.entity.common.Comments;
@@ -9,7 +9,7 @@ import org.jinstagram.entity.common.Likes;
 import org.jinstagram.entity.common.Location;
 import org.jinstagram.entity.common.User;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class MediaFeedData {
 	@SerializedName("caption")

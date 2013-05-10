@@ -1,15 +1,15 @@
 package org.jinstagram.auth.oauth;
 
+import java.io.IOException;
+
 import org.jinstagram.auth.InstagramApi;
+import org.jinstagram.auth.exceptions.OAuthException;
 import org.jinstagram.auth.model.OAuthConfig;
 import org.jinstagram.auth.model.OAuthConstants;
 import org.jinstagram.auth.model.OAuthRequest;
 import org.jinstagram.auth.model.Token;
 import org.jinstagram.auth.model.Verifier;
-import org.jinstagram.auth.exceptions.OAuthException;
 import org.jinstagram.http.Response;
-
-import java.io.IOException;
 
 public class InstagramService {
 	private static final String VERSION = "1.0";

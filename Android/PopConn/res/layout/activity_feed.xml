@@ -5,13 +5,12 @@
     android:background="@color/activity_feed_background"
     android:orientation="vertical" >
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <com.github.jeremiemartinez.refreshlistview.RefreshListView
         android:id="@+id/activity_feed_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/activity_feed_background"
-        android:visibility="invisible" >
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/activity_feed_refresh"

@@ -1,8 +1,8 @@
 package org.jinstagram.entity.relationships;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.jinstagram.entity.common.Meta;
+
+import com.google.gson.annotations.SerializedName;
 
 public class RelationshipFeed {
 	@SerializedName("data")
