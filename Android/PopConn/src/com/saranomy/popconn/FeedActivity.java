@@ -117,23 +117,28 @@ public class FeedActivity extends Activity {
 					try {
 						item.content = jsonItem.getString("message");
 					} catch (Exception e) {
+						try {
+							item.content = jsonItem.getString("description");
+						} catch (Exception e1) {
+							try {
+								item.content = jsonItem.getString("link");
+							} catch (Exception e2) {
+
+							}
+						}
+					}
+					try {
+						item.image_url = jsonItem.getString("picture");
+					} catch (Exception e) {
 
 					}
-					// specify view by type
-					String type = jsonItem.getString("type");
-					Log.e("item:type", type);
-					if (type.equals("link")) {
-						item.content = jsonItem.getString("message");
-					} else if (type.equals("photo")) {
-						item.image_url = jsonItem.getString("picture");
-					} else if (type.equals("video")) {
+					try {
+						item.feature = jsonItem.getJSONObject("likes").getString("count");
+					} catch (Exception e) {
 
-					} else if (type.equals("status")) {
-						item.content = jsonItem.getString("message");
-					} else {
+					}
+					// by random
 
-<<<<<<< HEAD
-=======
 					try {
 						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
 						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
@@ -143,7 +148,6 @@ public class FeedActivity extends Activity {
 						item.time = countDown(item.date);
 					} catch (ParseException e) {
 						e.printStackTrace();
->>>>>>> f2c86b87d15260c9932f1a36ea7317965332cafc
 					}
 
 					items.add(item);
