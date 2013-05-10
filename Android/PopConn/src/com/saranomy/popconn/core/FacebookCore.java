@@ -8,7 +8,7 @@ import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
 
 public class FacebookCore {
-	private static String appId = "105708102927645";
+	private static String appId = "422619067834909";
 	private static FacebookCore facebookCore = null;
 	private GraphUser graphUser;
 	private Facebook facebook;

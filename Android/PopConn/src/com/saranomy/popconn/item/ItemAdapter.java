@@ -22,8 +22,7 @@ public class ItemAdapter extends BaseAdapter {
 	public ItemAdapter(LayoutInflater inflater, List<Item> items) {
 		this.inflater = inflater;
 		this.items = items;
-		imageLoader = new ImageLoader(inflater.getContext()
-				.getApplicationContext());
+		imageLoader = new ImageLoader(inflater.getContext().getApplicationContext());
 		size = items.size();
 	}
 
@@ -49,31 +48,20 @@ public class ItemAdapter extends BaseAdapter {
 		if (listview == null) {
 			listview = inflater.inflate(R.layout.listview_item, null);
 			holder = new ViewHolder();
-			holder.listview_item_item = (LinearLayout) listview
-					.findViewById(R.id.listview_item_item);
+			holder.listview_item_item = (LinearLayout) listview.findViewById(R.id.listview_item_item);
 
-			holder.listview_item_name = (TextView) listview
-					.findViewById(R.id.listview_item_name);
-			holder.listview_item_action = (TextView) listview
-					.findViewById(R.id.listview_item_action);
-			holder.listview_item_thumbnail = (ImageView) listview
-					.findViewById(R.id.listview_item_thumbnail);
-			holder.listview_item_time = (TextView) listview
-					.findViewById(R.id.listview_item_time);
+			holder.listview_item_name = (TextView) listview.findViewById(R.id.listview_item_name);
+			holder.listview_item_action = (TextView) listview.findViewById(R.id.listview_item_action);
+			holder.listview_item_thumbnail = (ImageView) listview.findViewById(R.id.listview_item_thumbnail);
+			holder.listview_item_time = (TextView) listview.findViewById(R.id.listview_item_time);
 
-			holder.listview_item_content = (TextView) listview
-					.findViewById(R.id.listview_item_content);
-			holder.listview_item_image = (ImageView) listview
-					.findViewById(R.id.listview_item_image);
+			holder.listview_item_content = (TextView) listview.findViewById(R.id.listview_item_content);
+			holder.listview_item_image = (ImageView) listview.findViewById(R.id.listview_item_image);
 
-			holder.listview_item_image1 = (ImageView) listview
-					.findViewById(R.id.listview_item_image1);
-			holder.listview_item_feature1 = (TextView) listview
-					.findViewById(R.id.listview_item_feature1);
-			holder.listview_item_image2 = (ImageView) listview
-					.findViewById(R.id.listview_item_image2);
-			holder.listview_item_feature2 = (TextView) listview
-					.findViewById(R.id.listview_item_feature2);
+			holder.listview_item_image1 = (ImageView) listview.findViewById(R.id.listview_item_image1);
+			holder.listview_item_feature1 = (TextView) listview.findViewById(R.id.listview_item_feature1);
+			holder.listview_item_image2 = (ImageView) listview.findViewById(R.id.listview_item_image2);
+			holder.listview_item_feature2 = (TextView) listview.findViewById(R.id.listview_item_feature2);
 			listview.setTag(holder);
 		} else {
 			holder = (ViewHolder) listview.getTag();
@@ -82,6 +70,7 @@ public class ItemAdapter extends BaseAdapter {
 		Item item = items.get(position);
 
 		if (item.socialId == 0) {
+			holder.listview_item_item.setBackgroundResource(R.drawable.rect_facebook);
 			holder.listview_item_content.setText(item.content);
 
 			holder.listview_item_content.setVisibility(View.VISIBLE);
@@ -90,9 +79,9 @@ public class ItemAdapter extends BaseAdapter {
 			holder.listview_item_feature1.setVisibility(View.GONE);
 			holder.listview_item_image2.setVisibility(View.GONE);
 			holder.listview_item_feature2.setVisibility(View.GONE);
+
 		} else if (item.socialId == 1) {
-			holder.listview_item_item
-					.setBackgroundResource(R.drawable.rect_twitter);
+			holder.listview_item_item.setBackgroundResource(R.drawable.rect_twitter);
 
 			holder.listview_item_content.setVisibility(View.VISIBLE);
 			holder.listview_item_image.setVisibility(View.GONE);
@@ -105,15 +94,13 @@ public class ItemAdapter extends BaseAdapter {
 				holder.listview_item_image1.setVisibility(View.GONE);
 				holder.listview_item_feature1.setVisibility(View.GONE);
 			} else {
-				holder.listview_item_image1
-						.setImageResource(R.drawable.ic_favorite);
+				holder.listview_item_image1.setImageResource(R.drawable.ic_favorite);
 				holder.listview_item_feature1.setText(item.feature);
 			}
 			holder.listview_item_content.setText(item.content);
 
 		} else if (item.socialId == 2) {
-			holder.listview_item_item
-					.setBackgroundResource(R.drawable.rect_instagram);
+			holder.listview_item_item.setBackgroundResource(R.drawable.rect_instagram);
 
 			holder.listview_item_content.setVisibility(View.GONE);
 			holder.listview_item_image.setVisibility(View.VISIBLE);
@@ -126,8 +113,7 @@ public class ItemAdapter extends BaseAdapter {
 				holder.listview_item_image1.setVisibility(View.GONE);
 				holder.listview_item_feature1.setVisibility(View.GONE);
 			} else {
-				holder.listview_item_image1
-						.setImageResource(R.drawable.ic_favorite);
+				holder.listview_item_image1.setImageResource(R.drawable.ic_favorite);
 				holder.listview_item_feature1.setText(item.feature);
 			}
 
@@ -135,17 +121,14 @@ public class ItemAdapter extends BaseAdapter {
 				holder.listview_item_image2.setVisibility(View.GONE);
 				holder.listview_item_feature2.setVisibility(View.GONE);
 			} else {
-				holder.listview_item_image2
-						.setImageResource(R.drawable.ic_chat);
+				holder.listview_item_image2.setImageResource(R.drawable.ic_chat);
 				holder.listview_item_feature2.setText(item.comment);
 			}
-			imageLoader
-					.DisplayImage(item.image_url, holder.listview_item_image);
+			imageLoader.DisplayImage(item.image_url, holder.listview_item_image);
 
 		}
 
-		imageLoader.DisplayImage(item.thumbnail_url,
-				holder.listview_item_thumbnail);
+		imageLoader.DisplayImage(item.thumbnail_url, holder.listview_item_thumbnail);
 		holder.listview_item_name.setText(item.name);
 		holder.listview_item_action.setText(item.action);
 		holder.listview_item_time.setText(item.time);

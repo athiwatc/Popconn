@@ -111,11 +111,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/listview_item_image1"
-                android:background="#FACEEE"
                 android:paddingBottom="4dp"
                 android:paddingRight="16dp"
                 android:paddingTop="4dp"
-                android:text="sdfasdfasdfasdfasdfasdfasdfasdf"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </RelativeLayout>
 
@@ -137,11 +135,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/listview_item_image2"
-                android:background="#EFACEC"
                 android:paddingBottom="4dp"
                 android:paddingRight="16dp"
                 android:paddingTop="4dp"
-                android:text="sdfasdfasdfasdfasdfasdfasdfasdf"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </RelativeLayout>
     </LinearLayout>

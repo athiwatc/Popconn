@@ -1,5 +1,8 @@
 package com.saranomy.popconn;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -80,38 +83,55 @@ public class FeedActivity extends Activity {
 		instagramCore = InstagramCore.getInstance();
 
 		new LoadFacebookItem().execute();
-//		if (twitterCore.active) {
-//			new LoadTwitterItem().execute();
-//		} else {
-//			new LoadInstagramItem().execute();
-//		}
+		// if (twitterCore.active) {
+		// new LoadTwitterItem().execute();
+		// } else {
+		// new LoadInstagramItem().execute();
+		// }
 	}
-	
+
 	public class LoadFacebookItem extends AsyncTask<Void, Void, Void> {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			Request req = new Request(facebookCore.getSession(), "/me/home");
 			Response res = Request.executeAndWait(req);
 			try {
-				JSONArray data = res.getGraphObject().getInnerJSONObject().getJSONArray("data");
-				for (int i = 0; i < data.length(); i++) {
-					JSONObject thisObject = data.getJSONObject(i);
+				JSONArray jsonData = res.getGraphObject().getInnerJSONObject().getJSONArray("data");
+				Log.e("data", jsonData.toString());
+				for (int i = 0; i < jsonData.length(); i++) {
+					JSONObject jsonItem = jsonData.getJSONObject(i);
 					Item item = new Item();
 					item.socialId = 0;
-					item.name = thisObject.getJSONObject("from").getString("name");
-					item.content = thisObject.getString("message");
-					//Date facebookDate = 100L; 
-					item.time = "12";
-					item.date = 100L;
-					Log.i("aaa", item.content = thisObject.getString("message"));
+					try {
+						item.action = jsonItem.getJSONObject("application").getString("name");
+					} catch (Exception e) {
+						item.action = "";
+					}
+					// item.thumbnail_url = jsonItem.getString("icon");
+					item.name = jsonItem.getJSONObject("from").getString("name");
+					try {
+						item.content = jsonItem.getString("message");
+					} catch (Exception e) {
+						item.content = "";
+					}
+
+					try {
+						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
+						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
+						//TODO: add auto time zone
+						convertedDate.setHours(convertedDate.getHours() + 7);
+						item.date = convertedDate.getTime() / 1000;
+						item.time = countDown(item.date);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
 					items.add(item);
 				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception e) {
 			}
-			
 			return null;
 		}
 
@@ -135,8 +155,7 @@ public class FeedActivity extends Activity {
 		}
 
 		private void getHomeTimeline(Paging paging) throws TwitterException {
-			List<twitter4j.Status> statuses = twitterCore.twitter
-					.getHomeTimeline(paging);
+			List<twitter4j.Status> statuses = twitterCore.twitter.getHomeTimeline(paging);
 			for (twitter4j.Status status : statuses) {
 				Item item = new Item();
 				item.socialId = 1;
@@ -144,6 +163,7 @@ public class FeedActivity extends Activity {
 				item.action = "@" + status.getUser().getName();
 				item.thumbnail_url = status.getUser().getProfileImageURL();
 				item.date = status.getCreatedAt().getTime() / 1000L;
+				Log.e("twitter date", item.date + "");
 				item.time = countDown(item.date);
 				item.content = status.getText();
 
@@ -169,8 +189,7 @@ public class FeedActivity extends Activity {
 		protected Void doInBackground(Void... arg0) {
 			if (instagramCore.active) {
 				try {
-					MediaFeed mediaFeed = instagramCore.instagram
-							.getUserFeeds();
+					MediaFeed mediaFeed = instagramCore.instagram.getUserFeeds();
 					List<MediaFeedData> mediaFeedData = mediaFeed.getData();
 					int minSize = Math.min(mediaFeedData.size(), 20);
 					for (int i = 0; i < minSize; i++) {
@@ -181,25 +200,19 @@ public class FeedActivity extends Activity {
 						item.action = "";
 						if (media.getLocation() != null)
 							item.action = media.getLocation().getName();
-						item.thumbnail_url = media.getUser()
-								.getProfilePictureUrl();
+						item.thumbnail_url = media.getUser().getProfilePictureUrl();
 						item.date = Long.parseLong(media.getCreatedTime());
 						item.time = countDown(item.date);
-						item.image_url = media.getImages()
-								.getStandardResolution().getImageUrl();
+						item.image_url = media.getImages().getStandardResolution().getImageUrl();
 
 						item.feature = media.getLikes().getCount() + " likes\n";
 
 						item.comment = "";
-						List<CommentData> comments = media.getComments()
-								.getComments();
+						List<CommentData> comments = media.getComments().getComments();
 						if (comments.size() > 0) {
 							StringBuffer sb = new StringBuffer();
 							for (CommentData comment : comments) {
-								sb.append(
-										comment.getCommentFrom().getUsername())
-										.append(": ").append(comment.getText())
-										.append("\n");
+								sb.append(comment.getCommentFrom().getUsername()).append(": ").append(comment.getText()).append("\n");
 							}
 							item.comment = sb.toString();
 						}

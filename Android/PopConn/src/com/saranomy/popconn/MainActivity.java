@@ -1,8 +1,18 @@
 package com.saranomy.popconn;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends FragmentActivity {
@@ -13,7 +23,6 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.activity_main);
 		
 		if (savedInstanceState == null) {
@@ -29,7 +38,7 @@ public class MainActivity extends FragmentActivity {
 	        .findFragmentById(android.R.id.content);
 	    }
 		
-
+		
 	}
 
 	
