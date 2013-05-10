@@ -190,16 +190,19 @@ public class FeedActivity extends Activity {
 
 						item.feature = media.getLikes().getCount() + " likes\n";
 
-						StringBuffer sb = new StringBuffer();
+						item.comment = "";
 						List<CommentData> comments = media.getComments()
 								.getComments();
-
-						for (CommentData comment : comments) {
-							sb.append(comment.getCommentFrom().getUsername())
-									.append(": ").append(comment.getText())
-									.append("\n");
+						if (comments.size() > 0) {
+							StringBuffer sb = new StringBuffer();
+							for (CommentData comment : comments) {
+								sb.append(
+										comment.getCommentFrom().getUsername())
+										.append(": ").append(comment.getText())
+										.append("\n");
+							}
+							item.comment = sb.toString();
 						}
-						item.comment = sb.toString();
 						items.add(item);
 					}
 				} catch (InstagramException e) {
