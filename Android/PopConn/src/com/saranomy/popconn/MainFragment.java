@@ -115,7 +115,6 @@ public class MainFragment extends Fragment {
 		return view;
 	}
 	
-	private Button activity_main_facebook;
 	private Button activity_main_twitter;
 	private Button activity_main_instagram;
 	private Button activity_main_start;
@@ -129,13 +128,6 @@ public class MainFragment extends Fragment {
 
 	private void init() {
 		Log.e("TESTAAA", "ASDASDS");
-		activity_main_facebook.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				startActivity(new Intent(getActivity().getApplicationContext(),
-						LoginFacebookActivity.class));
-			}
-		});
 		activity_main_twitter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
