@@ -116,7 +116,8 @@ public class FeedActivity extends Activity {
 					MediaFeed mediaFeed = instagramCore.instagram
 							.getUserFeeds();
 					List<MediaFeedData> mediaFeedData = mediaFeed.getData();
-					for (int i = 0; i < 20; i++) {
+					int maxSize = Math.max(mediaFeedData.size(), 20);
+					for (int i = 0; i < maxSize; i++) {
 						MediaFeedData media = mediaFeedData.get(i);
 						Item item = new Item();
 						item.socialId = 2;
