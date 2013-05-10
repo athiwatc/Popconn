@@ -120,14 +120,12 @@ public class MainFragment extends Fragment {
 	private Button activity_main_start;
 	
 	private void syncViewById(View view) {
-		Log.e("HAHAHA", "FESFWEFWEfwefwef");
 		activity_main_twitter = (Button) view.findViewById(R.id.activity_main_twitter);
 		activity_main_instagram = (Button) view.findViewById(R.id.activity_main_instagram);
 		activity_main_start = (Button) view.findViewById(R.id.activity_main_start);
 	}
 
 	private void init() {
-		Log.e("TESTAAA", "ASDASDS");
 		activity_main_twitter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
