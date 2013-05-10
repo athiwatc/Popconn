@@ -5,9 +5,11 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.saranomy.popconn.R;
@@ -71,14 +73,21 @@ public class ItemAdapter extends BaseAdapter {
 
 		if (item.socialId == 0) {
 			holder.listview_item_item.setBackgroundResource(R.drawable.rect_facebook);
-			holder.listview_item_content.setText(item.content);
-
-			holder.listview_item_content.setVisibility(View.VISIBLE);
+			holder.listview_item_content.setVisibility(View.GONE);
 			holder.listview_item_image.setVisibility(View.GONE);
 			holder.listview_item_image1.setVisibility(View.GONE);
 			holder.listview_item_feature1.setVisibility(View.GONE);
 			holder.listview_item_image2.setVisibility(View.GONE);
 			holder.listview_item_feature2.setVisibility(View.GONE);
+
+			if (item.content != null) {
+				holder.listview_item_content.setVisibility(View.VISIBLE);
+				holder.listview_item_content.setText(item.content);
+			}
+			if (item.image_url != null) {
+				holder.listview_item_image.setVisibility(View.VISIBLE);
+				imageLoader.DisplayImage(item.image_url, holder.listview_item_image);
+			}
 
 		} else if (item.socialId == 1) {
 			holder.listview_item_item.setBackgroundResource(R.drawable.rect_twitter);
@@ -128,6 +137,7 @@ public class ItemAdapter extends BaseAdapter {
 
 		}
 
+		// every should have THUMBNAIL,NAME,ACTION,TIME
 		imageLoader.DisplayImage(item.thumbnail_url, holder.listview_item_thumbnail);
 		holder.listview_item_name.setText(item.name);
 		holder.listview_item_action.setText(item.action);

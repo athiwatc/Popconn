@@ -102,30 +102,36 @@ public class FeedActivity extends Activity {
 				Log.e("data", jsonData.toString());
 				for (int i = 0; i < jsonData.length(); i++) {
 					JSONObject jsonItem = jsonData.getJSONObject(i);
+					// depends on if it is null, CONTENT, IMAGE_URL,
 					Item item = new Item();
 					item.socialId = 0;
+					item.name = jsonItem.getJSONObject("from").getString("name");
+					item.date = isoToSecond(jsonItem.getString("created_time"));
+					item.time = countDown(item.date);
+					item.action = "";
 					try {
 						item.action = jsonItem.getJSONObject("application").getString("name");
 					} catch (Exception e) {
-						item.action = "";
+
 					}
-					// item.thumbnail_url = jsonItem.getString("icon");
-					item.name = jsonItem.getJSONObject("from").getString("name");
 					try {
 						item.content = jsonItem.getString("message");
 					} catch (Exception e) {
-						item.content = "";
-					}
 
-					try {
-						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
-						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
-						//TODO: add auto time zone
-						convertedDate.setHours(convertedDate.getHours() + 7);
-						item.date = convertedDate.getTime() / 1000;
-						item.time = countDown(item.date);
-					} catch (ParseException e) {
-						e.printStackTrace();
+					}
+					// specify view by type
+					String type = jsonItem.getString("type");
+					Log.e("item:type", type);
+					if (type.equals("link")) {
+						item.content = jsonItem.getString("message");
+					} else if (type.equals("photo")) {
+						item.image_url = jsonItem.getString("picture");
+					} else if (type.equals("video")) {
+
+					} else if (type.equals("status")) {
+						item.content = jsonItem.getString("message");
+					} else {
+
 					}
 
 					items.add(item);
@@ -163,7 +169,6 @@ public class FeedActivity extends Activity {
 				item.action = "@" + status.getUser().getName();
 				item.thumbnail_url = status.getUser().getProfileImageURL();
 				item.date = status.getCreatedAt().getTime() / 1000L;
-				Log.e("twitter date", item.date + "");
 				item.time = countDown(item.date);
 				item.content = status.getText();
 
@@ -249,15 +254,16 @@ public class FeedActivity extends Activity {
 			return Math.round(delta / 1440) + "d";
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_feed, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		// TODO Auto-generated method stub
-		return super.onMenuItemSelected(featureId, item);
+	@SuppressWarnings("deprecation")
+	public static long isoToSecond(String dateString) {
+		try {
+			DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
+			Date convertedDate = parser.parse(dateString);
+			convertedDate.setHours(convertedDate.getHours() + 7);
+			// TODO: auto time zone detect
+			return convertedDate.getTime() / 1000L;
+		} catch (Exception e) {
+		}
+		return 0;
 	}
 }
