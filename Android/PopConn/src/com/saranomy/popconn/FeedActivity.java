@@ -105,7 +105,7 @@ public class FeedActivity extends Activity {
 					Item item = new Item();
 					item.socialId = 0;
 					try {
-						item.action = jsonItem.getJSONObject("application").getString("name");
+						item.action = "via " + jsonItem.getJSONObject("application").getString("name");
 					} catch (Exception e) {
 						item.action = "";
 					}
@@ -120,7 +120,7 @@ public class FeedActivity extends Activity {
 					try {
 						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
 						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
-						//TODO: add auto time zone
+						// TODO: add auto time zone
 						convertedDate.setHours(convertedDate.getHours() + 7);
 						item.date = convertedDate.getTime() / 1000;
 						item.time = countDown(item.date);
