@@ -122,7 +122,6 @@ public class MainFragment extends Fragment {
 	
 	private void syncViewById(View view) {
 		Log.e("HAHAHA", "FESFWEFWEfwefwef");
-		activity_main_facebook = (Button) view.findViewById(R.id.activity_main_facebook);
 		activity_main_twitter = (Button) view.findViewById(R.id.activity_main_twitter);
 		activity_main_instagram = (Button) view.findViewById(R.id.activity_main_instagram);
 		activity_main_start = (Button) view.findViewById(R.id.activity_main_start);
