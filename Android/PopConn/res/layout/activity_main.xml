@@ -5,11 +5,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <Button
+    <com.facebook.widget.LoginButton
         android:id="@+id/activity_main_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_facebook" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/activity_main_twitter"
