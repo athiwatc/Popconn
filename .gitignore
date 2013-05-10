@@ -9,8 +9,10 @@
 *.class
 
 # generated files
-/bin/
-/gen/
+Android/PopConn/bin
+Android/PopConn/gen
+/bin
+/gen
 
 # Local configuration file (sdk path, etc)
 local.properties
