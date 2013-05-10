@@ -12,7 +12,7 @@ public class Item implements Comparable<Item> {
 
 	public String content;
 	public String image_url;
-
+	public String feature;
 	public String comment;
 
 	@Override

@@ -8,19 +8,11 @@ package com.github.jeremiemartinez.refreslistview;
 
 public final class R {
 	public static final class id {
-<<<<<<< HEAD
-		public static final int progress = 0x7f040021;
-		public static final int comment = 0x7f040022;
-		public static final int date = 0x7f040023;
-		public static final int arrow = 0x7f040020;
-		public static final int header = 0x7f04001f;
-=======
-		public static final int progress = 0x7f060020;
-		public static final int comment = 0x7f060021;
-		public static final int date = 0x7f060022;
-		public static final int arrow = 0x7f06001f;
-		public static final int header = 0x7f06001e;
->>>>>>> Add icon in Item
+		public static final int progress = 0x7f060021;
+		public static final int comment = 0x7f060022;
+		public static final int date = 0x7f060023;
+		public static final int arrow = 0x7f060020;
+		public static final int header = 0x7f06001f;
 	}
 	public static final class style {
 		public static final int refreshlistview_container = 0x7f050000;

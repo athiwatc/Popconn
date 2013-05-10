@@ -14,6 +14,7 @@ import twitter4j.Paging;
 import twitter4j.TwitterException;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.FeatureInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -102,11 +103,11 @@ public class FeedActivity extends Activity {
 				item.time = countDown(item.date);
 				item.content = status.getText();
 
-				String comment = "";
+				String feature = "";
 				if (status.isRetweet()) {
-					comment = status.getRetweetCount() + " Retweets ";
+					feature = status.getRetweetCount() + " Retweets";
 				}
-				item.comment = comment;
+				item.feature = feature;
 				items.add(item);
 			}
 		}
@@ -143,9 +144,9 @@ public class FeedActivity extends Activity {
 						item.image_url = media.getImages()
 								.getStandardResolution().getImageUrl();
 
+						item.feature = media.getLikes().getCount() + " likes\n";
+
 						StringBuffer sb = new StringBuffer();
-						sb.append(media.getLikes().getCount()).append(
-								" likes\n");
 						List<CommentData> comments = media.getComments()
 								.getComments();
 
