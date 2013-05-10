@@ -92,19 +92,52 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/listview_item_footer"
+            android:id="@+id/listview_item_footer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/listview_item_pic_favourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:src="@drawable/ic_favorite" />
+
+            <TextView
+                android:id="@+id/listview_item_feature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/listview_item_pic_favourite"
+                android:paddingBottom="8dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/listview_item_footer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/listview_item_pic_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="16dp"
+                android:src="@drawable/ic_chat" />
 
             <TextView
                 android:id="@+id/listview_item_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/listview_item_pic_comment"
                 android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </RelativeLayout>
     </LinearLayout>
