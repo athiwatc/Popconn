@@ -22,13 +22,16 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.saranomy.popconn.core.InstagramCore;
 import com.saranomy.popconn.core.TwitterCore;
 import com.saranomy.popconn.item.Item;
 import com.saranomy.popconn.item.ItemAdapter;
 
 public class FeedActivity extends Activity {
-	private ListView activity_feed_listview;
+	private PullToRefreshListView activity_feed_listview;
 	private ProgressBar activity_feed_refresh;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
@@ -44,13 +47,14 @@ public class FeedActivity extends Activity {
 	}
 
 	private void syncViewById() {
-		activity_feed_listview = (ListView) findViewById(R.id.activity_feed_listview);
-		// activity_feed_listview.setOnRefreshListener(new OnRefreshListener() {
-		// @Override
-		// public void onRefresh() {
-		// init();
-		// }
-		// });
+		activity_feed_listview = (PullToRefreshListView) findViewById(R.id.activity_feed_listview);
+		activity_feed_listview.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		    @Override
+		    public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+		        // Do work to refresh the list here.
+		        init();
+		    }
+		});
 		activity_feed_refresh = (ProgressBar) findViewById(R.id.activity_feed_refresh);
 	}
 
@@ -161,7 +165,7 @@ public class FeedActivity extends Activity {
 
 			activity_feed_refresh.setVisibility(View.GONE);
 			activity_feed_listview.setVisibility(View.VISIBLE);
-			// activity_feed_listview.onRefreshComplete();
+			activity_feed_listview.onRefreshComplete();
 			super.onPostExecute(result);
 		}
 	}
