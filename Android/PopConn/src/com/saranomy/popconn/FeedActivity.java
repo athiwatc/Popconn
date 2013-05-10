@@ -131,9 +131,11 @@ public class FeedActivity extends Activity {
 						item.image_url = media.getImages()
 								.getStandardResolution().getImageUrl();
 
+						StringBuffer sb = new StringBuffer();
+						sb.append(media.getLikes().getCount()).append(" likes\n");
 						List<CommentData> comments = media.getComments()
 								.getComments();
-						StringBuffer sb = new StringBuffer();
+						
 						for (CommentData comment : comments) {
 							sb.append(comment.getCommentFrom().getUsername())
 									.append(": ").append(comment.getText())
