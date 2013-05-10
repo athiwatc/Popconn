@@ -13,13 +13,6 @@
         android:layout_marginTop="30dp"
         />
 
-
-    <Button
-        android:id="@+id/activity_main_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_facebook" />
-
     <Button
         android:id="@+id/activity_main_twitter"
         android:layout_width="match_parent"
