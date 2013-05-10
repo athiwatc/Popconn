@@ -9,6 +9,9 @@ import org.jinstagram.entity.comments.CommentData;
 import org.jinstagram.entity.users.feed.MediaFeed;
 import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.jinstagram.exceptions.InstagramException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import twitter4j.Paging;
 import twitter4j.TwitterException;
@@ -24,10 +27,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.facebook.Request;
-import com.facebook.Request.Callback;
 import com.facebook.Response;
-import com.facebook.model.GraphObject;
-import com.facebook.model.GraphObjectList;
 import com.github.jeremiemartinez.refreshlistview.RefreshListView;
 import com.github.jeremiemartinez.refreshlistview.RefreshListView.OnRefreshListener;
 import com.saranomy.popconn.core.FacebookCore;
@@ -93,7 +93,25 @@ public class FeedActivity extends Activity {
 		protected Void doInBackground(Void... arg0) {
 			Request req = new Request(facebookCore.getSession(), "/me/home");
 			Response res = Request.executeAndWait(req);
-			Log.e("ASDDSA", res.toString());
+			try {
+				JSONArray data = res.getGraphObject().getInnerJSONObject().getJSONArray("data");
+				for (int i = 0; i < data.length(); i++) {
+					JSONObject thisObject = data.getJSONObject(i);
+					Item item = new Item();
+					item.socialId = 0;
+					item.name = thisObject.getJSONObject("from").getString("name");
+					item.content = thisObject.getString("message");
+					//Date facebookDate = 100L; 
+					item.time = "12";
+					item.date = 100L;
+					Log.i("aaa", item.content = thisObject.getString("message"));
+					items.add(item);
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return null;
 		}
 

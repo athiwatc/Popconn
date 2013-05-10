@@ -81,7 +81,16 @@ public class ItemAdapter extends BaseAdapter {
 		// assign item
 		Item item = items.get(position);
 
-		if (item.socialId == 1) {
+		if (item.socialId == 0) {
+			holder.listview_item_content.setText(item.content);
+
+			holder.listview_item_content.setVisibility(View.VISIBLE);
+			holder.listview_item_image.setVisibility(View.GONE);
+			holder.listview_item_image1.setVisibility(View.GONE);
+			holder.listview_item_feature1.setVisibility(View.GONE);
+			holder.listview_item_image2.setVisibility(View.GONE);
+			holder.listview_item_feature2.setVisibility(View.GONE);
+		} else if (item.socialId == 1) {
 			holder.listview_item_item
 					.setBackgroundResource(R.drawable.rect_twitter);
 
