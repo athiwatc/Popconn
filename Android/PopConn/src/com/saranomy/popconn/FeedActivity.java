@@ -14,17 +14,23 @@ import twitter4j.Paging;
 import twitter4j.TwitterException;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.FeatureInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.facebook.Request;
+import com.facebook.Request.Callback;
+import com.facebook.Response;
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphObjectList;
 import com.github.jeremiemartinez.refreshlistview.RefreshListView;
 import com.github.jeremiemartinez.refreshlistview.RefreshListView.OnRefreshListener;
+import com.saranomy.popconn.core.FacebookCore;
 import com.saranomy.popconn.core.InstagramCore;
 import com.saranomy.popconn.core.TwitterCore;
 import com.saranomy.popconn.item.Item;
@@ -33,6 +39,7 @@ import com.saranomy.popconn.item.ItemAdapter;
 public class FeedActivity extends Activity {
 	private RefreshListView activity_feed_listview;
 	private ProgressBar activity_feed_refresh;
+	private FacebookCore facebookCore;
 	private TwitterCore twitterCore;
 	private InstagramCore instagramCore;
 
@@ -68,13 +75,32 @@ public class FeedActivity extends Activity {
 
 	private void init() {
 		items = new ArrayList<Item>();
+		facebookCore = FacebookCore.getInstance();
 		twitterCore = TwitterCore.getInstance();
 		instagramCore = InstagramCore.getInstance();
 
-		if (twitterCore.active) {
+		new LoadFacebookItem().execute();
+//		if (twitterCore.active) {
+//			new LoadTwitterItem().execute();
+//		} else {
+//			new LoadInstagramItem().execute();
+//		}
+	}
+	
+	public class LoadFacebookItem extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			Request req = new Request(facebookCore.getSession(), "/me/home");
+			Response res = Request.executeAndWait(req);
+			Log.e("ASDDSA", res.toString());
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
 			new LoadTwitterItem().execute();
-		} else {
-			new LoadInstagramItem().execute();
+			super.onPostExecute(result);
 		}
 	}
 

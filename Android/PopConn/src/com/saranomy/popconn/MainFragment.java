@@ -18,6 +18,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
+import com.saranomy.popconn.core.FacebookCore;
 
 public class MainFragment extends Fragment {
 
@@ -81,16 +82,18 @@ public class MainFragment extends Fragment {
 		
 		if (state.isOpened()) {
 			Log.i(TAG, "Logged in...");
+			
+			FacebookCore.getInstance().setSession(session);
 
-			Request.executeGraphPathRequestAsync(session, "me/home",
-					new Request.Callback() {
-
-						@Override
-						public void onCompleted(Response response) {
-							Log.i("asd", response.toString());
-
-						}
-					});
+//			Request.executeGraphPathRequestAsync(session, "me/home",
+//					new Request.Callback() {
+//
+//						@Override
+//						public void onCompleted(Response response) {
+//							Log.i("asd", response.toString());
+//
+//						}
+//					});
 
 			// (new FacebookGetRequest()).execute(session);
 
