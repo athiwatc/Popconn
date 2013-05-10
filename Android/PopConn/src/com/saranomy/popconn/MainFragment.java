@@ -77,6 +77,8 @@ public class MainFragment extends Fragment {
 
 	private void onSessionStateChange(Session session, SessionState state,
 			Exception exception) {
+		Log.e("TST", "TEST");
+		
 		if (state.isOpened()) {
 			Log.i(TAG, "Logged in...");
 
