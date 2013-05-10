@@ -1,14 +1,14 @@
 package com.saranomy.popconn;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	private Button activity_main_facebook;
 	private Button activity_main_twitter;
 	private Button activity_main_instagram;
@@ -22,18 +22,6 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		syncViewById();
 		init();
-
-
-		if (savedInstanceState == null) {
-			// Add the fragment on initial activity setup
-			mainFragment = new MainFragment();
-			getSupportFragmentManager().beginTransaction()
-					.add(android.R.id.content, mainFragment).commit();
-		} else {
-			// Or set the fragment from restored state info
-			mainFragment = (MainFragment) getSupportFragmentManager()
-					.findFragmentById(android.R.id.content);
-		}
 	}
 
 	private void syncViewById() {
@@ -44,13 +32,13 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void init() {
-//		activity_main_facebook.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				startActivity(new Intent(getApplicationContext(),
-//						LoginFacebookActivity.class));
-//			}
-//		});
+		activity_main_facebook.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(getApplicationContext(),
+						LoginFacebookActivity.class));
+			}
+		});
 		activity_main_twitter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
