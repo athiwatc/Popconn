@@ -25,19 +25,13 @@ import android.view.View;
 public class ViewCompat {
 
 	public static void postOnAnimation(View view, Runnable runnable) {
-		if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-			SDK16.postOnAnimation(view, runnable);
-		} else {
-			view.postDelayed(runnable, 16);
-		}
+		view.postDelayed(runnable, 16);
+
 	}
 
 	public static void setBackground(View view, Drawable background) {
-		if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-			SDK16.setBackground(view, background);
-		} else {
-			view.setBackgroundDrawable(background);
-		}
+		view.setBackgroundDrawable(background);
+
 	}
 
 	public static void setLayerType(View view, int layerType) {
@@ -52,19 +46,6 @@ public class ViewCompat {
 		public static void setLayerType(View view, int layerType) {
 			view.setLayerType(layerType, null);
 		}
-	}
-
-	@TargetApi(16)
-	static class SDK16 {
-
-		public static void postOnAnimation(View view, Runnable runnable) {
-			view.postOnAnimation(runnable);
-		}
-
-		public static void setBackground(View view, Drawable background) {
-			view.setBackground(background);
-		}
-
 	}
 
 }
