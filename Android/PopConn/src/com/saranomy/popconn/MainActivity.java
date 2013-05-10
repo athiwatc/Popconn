@@ -1,19 +1,9 @@
 package com.saranomy.popconn;
 
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
 
 public class MainActivity extends FragmentActivity {
 
@@ -37,18 +27,11 @@ public class MainActivity extends FragmentActivity {
 	        mainFragment = (MainFragment) getSupportFragmentManager()
 	        .findFragmentById(android.R.id.content);
 	    }
-		
-		
 	}
-
-	
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
+	protected void onResume() {
+		mainFragment.updateButton();
+		super.onResume();
 	}
-
-
 }

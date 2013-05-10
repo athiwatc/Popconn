@@ -5,11 +5,9 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.saranomy.popconn.R;
@@ -88,22 +86,25 @@ public class ItemAdapter extends BaseAdapter {
 				holder.listview_item_image.setVisibility(View.VISIBLE);
 				imageLoader.DisplayImage(item.image_url, holder.listview_item_image);
 			}
+			if (item.feature != null) {
+				holder.listview_item_image1.setVisibility(View.VISIBLE);
+				holder.listview_item_feature1.setVisibility(View.VISIBLE);
+				holder.listview_item_image1.setImageResource(R.drawable.ic_good);
+				holder.listview_item_feature1.setText(item.feature);
+			}
 
 		} else if (item.socialId == 1) {
 			holder.listview_item_item.setBackgroundResource(R.drawable.rect_twitter);
 
 			holder.listview_item_content.setVisibility(View.VISIBLE);
 			holder.listview_item_image.setVisibility(View.GONE);
-			holder.listview_item_image1.setVisibility(View.VISIBLE);
-			holder.listview_item_feature1.setVisibility(View.VISIBLE);
+			holder.listview_item_image1.setVisibility(View.GONE);
+			holder.listview_item_feature1.setVisibility(View.GONE);
 			holder.listview_item_image2.setVisibility(View.GONE);
 			holder.listview_item_feature2.setVisibility(View.GONE);
 
-			if (item.feature == "") {
-				holder.listview_item_image1.setVisibility(View.GONE);
-				holder.listview_item_feature1.setVisibility(View.GONE);
-			} else {
-				holder.listview_item_image1.setImageResource(R.drawable.ic_favorite);
+			if (item.feature != "") {
+				holder.listview_item_image1.setImageResource(R.drawable.ic_repeat);
 				holder.listview_item_feature1.setText(item.feature);
 			}
 			holder.listview_item_content.setText(item.content);
@@ -113,23 +114,21 @@ public class ItemAdapter extends BaseAdapter {
 
 			holder.listview_item_content.setVisibility(View.GONE);
 			holder.listview_item_image.setVisibility(View.VISIBLE);
-			holder.listview_item_image1.setVisibility(View.VISIBLE);
-			holder.listview_item_feature1.setVisibility(View.VISIBLE);
-			holder.listview_item_image2.setVisibility(View.VISIBLE);
-			holder.listview_item_feature2.setVisibility(View.VISIBLE);
+			holder.listview_item_image1.setVisibility(View.GONE);
+			holder.listview_item_feature1.setVisibility(View.GONE);
+			holder.listview_item_image2.setVisibility(View.GONE);
+			holder.listview_item_feature2.setVisibility(View.GONE);
 
-			if (item.feature == "") {
-				holder.listview_item_image1.setVisibility(View.GONE);
-				holder.listview_item_feature1.setVisibility(View.GONE);
-			} else {
+			if (item.feature != "") {
+				holder.listview_item_image1.setVisibility(View.VISIBLE);
+				holder.listview_item_feature1.setVisibility(View.VISIBLE);
 				holder.listview_item_image1.setImageResource(R.drawable.ic_favorite);
 				holder.listview_item_feature1.setText(item.feature);
 			}
 
-			if (item.comment == "") {
-				holder.listview_item_image2.setVisibility(View.GONE);
-				holder.listview_item_feature2.setVisibility(View.GONE);
-			} else {
+			if (item.comment != "") {
+				holder.listview_item_image2.setVisibility(View.VISIBLE);
+				holder.listview_item_feature2.setVisibility(View.VISIBLE);
 				holder.listview_item_image2.setImageResource(R.drawable.ic_chat);
 				holder.listview_item_feature2.setText(item.comment);
 			}

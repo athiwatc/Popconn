@@ -1,42 +1,92 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#660566"
+    android:background="@color/activity_feed_background"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <LinearLayout
+    <Button
+        android:id="@+id/activity_main_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:orientation="vertical" >
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:enabled="false"
+        android:text="@string/activity_main_start"
+        android:textSize="36dp" />
 
-        <com.facebook.widget.LoginButton
-            android:id="@+id/authButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FACECC" />
+    <ScrollView
+        android:id="@+id/activity_main_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activity_main_start"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
 
-        <Button
-            android:id="@+id/activity_main_twitter"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity_main_twitter" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/activity_main_instagram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_main_instagram" />
+            <TextView
+                android:id="@+id/activity_main_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/activity_main_info"
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/activity_main_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_main_start" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/activity_main_info0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="@string/activity_main_info0"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</LinearLayout>
+            <com.facebook.widget.LoginButton
+                android:id="@+id/authButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FACECC" />
+
+            <Button
+                android:id="@+id/activity_main_twitter"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/button_twitter"
+                android:text="@string/activity_main_twitter"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/activity_main_instagram"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/button_instagram"
+                android:text="@string/activity_main_instagram"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/activity_main_info1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/activity_main_info1"
+                android:textColor="#ababab" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

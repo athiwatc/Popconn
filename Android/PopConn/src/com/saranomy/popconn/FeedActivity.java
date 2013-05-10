@@ -110,7 +110,7 @@ public class FeedActivity extends Activity {
 					item.time = countDown(item.date);
 					item.action = "";
 					try {
-						item.action = jsonItem.getJSONObject("application").getString("name");
+						item.action = "via " + jsonItem.getJSONObject("application").getString("name");
 					} catch (Exception e) {
 
 					}
@@ -132,6 +132,18 @@ public class FeedActivity extends Activity {
 						item.content = jsonItem.getString("message");
 					} else {
 
+<<<<<<< HEAD
+=======
+					try {
+						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
+						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
+						// TODO: add auto time zone
+						convertedDate.setHours(convertedDate.getHours() + 7);
+						item.date = convertedDate.getTime() / 1000;
+						item.time = countDown(item.date);
+					} catch (ParseException e) {
+						e.printStackTrace();
+>>>>>>> f2c86b87d15260c9932f1a36ea7317965332cafc
 					}
 
 					items.add(item);

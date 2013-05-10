@@ -16,6 +16,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.saranomy.popconn.DatabaseHandler;
+import com.saranomy.popconn.LoginTwitterActivity;
+
 public class TwitterCore {
 	static String consumer_key = "7URvxUcNnhNHdrOdfVs6g";
 	static String consumer_secret = "kDOaOwX0OmmF2Exb1N7iPA0U5NWEXkGogjvKAHInluI";
@@ -43,19 +46,40 @@ public class TwitterCore {
 		return twitterCore;
 	}
 
+	public void loadDatabase(Context context) {
+		try {
+			active = Boolean.parseBoolean(DatabaseHandler.loadFile(context, "twt"));
+		} catch (Exception e) {
+			// cannot find 'isg'
+			try {
+				DatabaseHandler.saveFile(context, "twt", "false");
+			} catch (Exception e2) {
+
+			}
+		}
+	}
+
+	public void saveDatabase(Context context) {
+		try {
+			DatabaseHandler.saveFile(context, "twt", "" + active);
+		} catch (Exception e) {
+		}
+	}
+
 	private void createTwitterInstance() {
 		ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey(consumer_key);
-        builder.setOAuthConsumerSecret(consumer_secret);
-        builder.setOAuthAccessToken(accessTokenString);
-        builder.setOAuthAccessTokenSecret(accessTokenSecretString);
-        Configuration configuration = builder.build();
+		builder.setOAuthConsumerKey(consumer_key);
+		builder.setOAuthConsumerSecret(consumer_secret);
+		builder.setOAuthAccessToken(accessTokenString);
+		builder.setOAuthAccessTokenSecret(accessTokenSecretString);
+		Configuration configuration = builder.build();
 
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
 
 		if (accessTokenString != null) {
 			active = true;
+			saveDatabase(currentActivity);
 			currentActivity.finish();
 			Toast.makeText(currentActivity, "Twitter is connected.", Toast.LENGTH_SHORT).show();
 		} else {
@@ -67,10 +91,10 @@ public class TwitterCore {
 
 	public void generateAccessToken(Activity activity) {
 		// load token in private storage
-		sharedPrefenences = activity.getSharedPreferences("com.example.twitter", Context.MODE_PRIVATE);
+		sharedPrefenences = activity.getSharedPreferences("com.saranomy.popconn", Context.MODE_PRIVATE);
 		accessTokenString = sharedPrefenences.getString("twitter_access_token", null);
 		accessTokenSecretString = sharedPrefenences.getString("twitter_access_token_secret", null);
-		
+
 		currentActivity = activity;
 		webview = new WebView(activity);
 
@@ -134,7 +158,9 @@ public class TwitterCore {
 
 		protected void onPostExecute(Void result) {
 			active = true;
-			currentActivity.finish();
+			saveDatabase(currentActivity);
+			if (currentActivity instanceof LoginTwitterActivity)
+				currentActivity.finish();
 			Toast.makeText(currentActivity, "Twitter is connected.", Toast.LENGTH_SHORT).show();
 			super.onPostExecute(result);
 		}
