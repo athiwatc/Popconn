@@ -109,6 +109,8 @@ public class FeedActivity extends Activity {
 					item.date = isoToSecond(jsonItem.getString("created_time"));
 					item.time = countDown(item.date);
 					item.action = "";
+					String userId = jsonItem.getJSONObject("from").getString("id");
+					item.thumbnail_url = "https://graph.facebook.com/"+userId+"/picture";
 					try {
 						item.action = "via " + jsonItem.getJSONObject("application").getString("name");
 					} catch (Exception e) {
