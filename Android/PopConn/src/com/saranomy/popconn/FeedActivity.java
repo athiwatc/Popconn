@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -50,6 +51,7 @@ public class FeedActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_feed);
 		syncViewById();
 		init();
@@ -78,6 +80,7 @@ public class FeedActivity extends Activity {
 	int socialNetworkFinishedLoading;
 	int totalSocialNetwork;
 	Handler counter;
+
 	private void init() {
 		items = new ArrayList<Item>();
 		Log.i("Core", "Facebook Core Loaded");
@@ -86,27 +89,31 @@ public class FeedActivity extends Activity {
 		twitterCore = TwitterCore.getInstance();
 		Log.i("Core", "Instagram Core Loaded");
 		instagramCore = InstagramCore.getInstance();
-		
+
 		socialNetworkFinishedLoading = 0;
 		totalSocialNetwork = 0;
-		//A counter for the social network loader to call after they have loaded.
+		// A counter for the social network loader to call after they have
+		// loaded.
 		counter = new Handler() {
-		    @Override
-		    public void handleMessage(Message msg) {
-		        switch (msg.what) {
-		        case 0:
-		        	//For every social network finished loading it increase the counter by one.
-		        	socialNetworkFinishedLoading++;
-		        	//When the number of social network loaded is equal to the number of total social network active it will display to result.
-		        	if (socialNetworkFinishedLoading == totalSocialNetwork) {
-		        		displayView();
-		        	}
-		            break;
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case 0:
+					// For every social network finished loading it increase the
+					// counter by one.
+					socialNetworkFinishedLoading++;
+					// When the number of social network loaded is equal to the
+					// number of total social network active it will display to
+					// result.
+					if (socialNetworkFinishedLoading == totalSocialNetwork) {
+						displayView();
+					}
+					break;
 
-		        default:
-		            break;
-		        }
-		    }
+				default:
+					break;
+				}
+			}
 		};
 
 		if (facebookCore.active) {
@@ -319,5 +326,16 @@ public class FeedActivity extends Activity {
 		} catch (Exception e) {
 		}
 		return 0;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

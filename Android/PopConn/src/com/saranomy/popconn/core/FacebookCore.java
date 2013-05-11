@@ -1,7 +1,6 @@
 package com.saranomy.popconn.core;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.facebook.Session;
 import com.facebook.android.Facebook;

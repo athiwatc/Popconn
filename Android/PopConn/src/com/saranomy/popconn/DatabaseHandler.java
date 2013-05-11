@@ -10,8 +10,7 @@ import android.content.Context;
 import android.util.Log;
 
 public class DatabaseHandler {
-	// twt = 0 or 1
-	// isg = 0 or 1
+	// twt, isg are written/read to save login/logout state
 	public static void saveFile(Context context, String name, String data) throws IOException {
 		FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
 		fos.write(data.getBytes());
