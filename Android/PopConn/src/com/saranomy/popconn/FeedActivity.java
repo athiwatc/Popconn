@@ -307,7 +307,9 @@ public class FeedActivity extends Activity {
 
 	public static String countDown(long time) {
 		long delta = (System.currentTimeMillis() / 60000) - (time / 60);
-		if (delta < 60)
+		if ((System.currentTimeMillis() / 10000) - (time / 10) < 60) {
+			return "Just now";
+		} else if (delta < 60)
 			return delta + "m";
 		else if (delta < 1440)
 			return Math.round(delta / 60) + "h";
