@@ -89,12 +89,15 @@ public class FeedActivity extends Activity {
 		
 		socialNetworkFinishedLoading = 0;
 		totalSocialNetwork = 0;
+		//A counter for the social network loader to call after they have loaded.
 		counter = new Handler() {
 		    @Override
 		    public void handleMessage(Message msg) {
 		        switch (msg.what) {
 		        case 0:
+		        	//For every social network finished loading it increase the counter by one.
 		        	socialNetworkFinishedLoading++;
+		        	//When the number of social network loaded is equal to the number of total social network active it will display to result.
 		        	if (socialNetworkFinishedLoading == totalSocialNetwork) {
 		        		displayView();
 		        	}
