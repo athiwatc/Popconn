@@ -21,6 +21,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +75,9 @@ public class FeedActivity extends Activity {
 		activity_feed_refresh = (ProgressBar) findViewById(R.id.activity_feed_refresh);
 	}
 
+	int socialNetworkFinishedLoading;
+	int totalSocialNetwork;
+	Handler counter;
 	private void init() {
 		items = new ArrayList<Item>();
 		Log.i("Core", "Facebook Core Loaded");
@@ -81,15 +86,37 @@ public class FeedActivity extends Activity {
 		twitterCore = TwitterCore.getInstance();
 		Log.i("Core", "Instagram Core Loaded");
 		instagramCore = InstagramCore.getInstance();
+		
+		socialNetworkFinishedLoading = 0;
+		totalSocialNetwork = 0;
+		counter = new Handler() {
+		    @Override
+		    public void handleMessage(Message msg) {
+		        switch (msg.what) {
+		        case 0:
+		        	socialNetworkFinishedLoading++;
+		        	if (socialNetworkFinishedLoading == totalSocialNetwork) {
+		        		displayView();
+		        	}
+		            break;
+
+		        default:
+		            break;
+		        }
+		    }
+		};
 
 		if (facebookCore.active) {
 			new LoadFacebookItem().execute();
+			totalSocialNetwork++;
 		}
 		if (twitterCore.active) {
 			new LoadTwitterItem().execute();
+			totalSocialNetwork++;
 		}
 		if (instagramCore.active) {
 			new LoadInstagramItem().execute();
+			totalSocialNetwork++;
 		}
 	}
 
@@ -163,7 +190,7 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			displayView();
+			counter.sendEmptyMessage(0);
 			super.onPostExecute(result);
 		}
 	}
@@ -203,7 +230,7 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			displayView();
+			counter.sendEmptyMessage(0);
 			super.onPostExecute(result);
 		}
 	}
@@ -252,7 +279,7 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			displayView();
+			counter.sendEmptyMessage(0);
 			super.onPostExecute(result);
 		}
 	}
