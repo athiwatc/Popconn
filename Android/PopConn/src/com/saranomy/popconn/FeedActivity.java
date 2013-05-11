@@ -13,7 +13,6 @@ import org.jinstagram.entity.users.feed.MediaFeed;
 import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.jinstagram.exceptions.InstagramException;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import twitter4j.Paging;
@@ -24,8 +23,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -78,16 +75,22 @@ public class FeedActivity extends Activity {
 
 	private void init() {
 		items = new ArrayList<Item>();
+		Log.i("Core", "Facebook Core Loaded");
 		facebookCore = FacebookCore.getInstance();
+		Log.i("Core", "Twitter Core Loaded");
 		twitterCore = TwitterCore.getInstance();
+		Log.i("Core", "Instagram Core Loaded");
 		instagramCore = InstagramCore.getInstance();
 
-		new LoadFacebookItem().execute();
-		// if (twitterCore.active) {
-		// new LoadTwitterItem().execute();
-		// } else {
-		// new LoadInstagramItem().execute();
-		// }
+		if (facebookCore.active) {
+			new LoadFacebookItem().execute();
+		}
+		if (twitterCore.active) {
+			new LoadTwitterItem().execute();
+		}
+		if (instagramCore.active) {
+			new LoadInstagramItem().execute();
+		}
 	}
 
 	public class LoadFacebookItem extends AsyncTask<Void, Void, Void> {
@@ -110,7 +113,7 @@ public class FeedActivity extends Activity {
 					item.time = countDown(item.date);
 					item.action = "";
 					String userId = jsonItem.getJSONObject("from").getString("id");
-					item.thumbnail_url = "https://graph.facebook.com/"+userId+"/picture";
+					item.thumbnail_url = "https://graph.facebook.com/" + userId + "/picture";
 					try {
 						item.action = "via " + jsonItem.getJSONObject("application").getString("name");
 					} catch (Exception e) {
@@ -139,12 +142,11 @@ public class FeedActivity extends Activity {
 					} catch (Exception e) {
 
 					}
-					// by random
 
 					try {
 						DateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+SSSS");
 						Date convertedDate = parser.parse(jsonItem.getString("created_time"));
-						// TODO: add auto time zone
+
 						convertedDate.setHours(convertedDate.getHours() + 7);
 						item.date = convertedDate.getTime() / 1000;
 						item.time = countDown(item.date);
@@ -161,7 +163,7 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			new LoadTwitterItem().execute();
+			displayView();
 			super.onPostExecute(result);
 		}
 	}
@@ -201,7 +203,7 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			new LoadInstagramItem().execute();
+			displayView();
 			super.onPostExecute(result);
 		}
 	}
@@ -250,16 +252,20 @@ public class FeedActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			ItemAdapter adapter = new ItemAdapter(inflater, items);
-			Collections.sort(items, Item.comparator);
-			activity_feed_listview.setAdapter(adapter);
-
-			activity_feed_refresh.setVisibility(View.GONE);
-			activity_feed_listview.setVisibility(View.VISIBLE);
-			activity_feed_listview.finishRefreshing();
+			displayView();
 			super.onPostExecute(result);
 		}
+	}
+
+	public void displayView() {
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		ItemAdapter adapter = new ItemAdapter(inflater, items);
+		Collections.sort(items, Item.comparator);
+		activity_feed_listview.setAdapter(adapter);
+
+		activity_feed_refresh.setVisibility(View.GONE);
+		activity_feed_listview.setVisibility(View.VISIBLE);
+		activity_feed_listview.finishRefreshing();
 	}
 
 	public static String countDown(long time) {

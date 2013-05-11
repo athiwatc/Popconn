@@ -25,7 +25,6 @@ public class FacebookCore {
 	
 	public void setSession(Session session) {
 		this.session = session;
-		Log.e("SESSIONSET", session.getAccessToken().toString());
 	}
 	
 	public Session getSession() {
