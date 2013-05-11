@@ -3,7 +3,7 @@
 
     <string name="app_id">105708102927645</string>
     <string name="app_name">PopConn</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_clear">Clear data</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_loading_facebook">Loading Facebook</string>
     <string name="title_loading_twitter">Loading Twitter</string>
