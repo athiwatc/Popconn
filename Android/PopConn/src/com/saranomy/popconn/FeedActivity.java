@@ -215,8 +215,8 @@ public class FeedActivity extends Activity {
 			for (twitter4j.Status status : statuses) {
 				Item item = new Item();
 				item.socialId = 1;
-				item.name = status.getUser().getScreenName();
-				item.action = "@" + status.getUser().getName();
+				item.name = status.getUser().getName();
+				item.action = "@" + status.getUser().getScreenName();
 				item.thumbnail_url = status.getUser().getProfileImageURL();
 				item.date = status.getCreatedAt().getTime() / 1000L;
 				item.time = countDown(item.date);
